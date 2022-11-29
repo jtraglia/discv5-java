@@ -9,26 +9,29 @@ import static org.ethereum.beacon.discovery.TestUtil.assertRejectTrailingBytes;
 import static org.ethereum.beacon.discovery.TestUtil.assertRoundTrip;
 
 import java.util.List;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.apache.tuweni.bytes.Bytes;
 import org.ethereum.beacon.discovery.SimpleIdentitySchemaInterpreter;
 import org.ethereum.beacon.discovery.schema.NodeRecordFactory;
+import org.ethereum.beacon.discovery.suppliers.FindNodeMessageSupplier;
 import org.ethereum.beacon.discovery.util.RlpDecodeException;
 import org.junit.jupiter.api.Test;
 
 class FindNodeMessageTest {
   private static final DiscoveryV5MessageDecoder DECODER =
       new DiscoveryV5MessageDecoder(new NodeRecordFactory(new SimpleIdentitySchemaInterpreter()));
-  private static final FindNodeMessage MESSAGE =
-      new FindNodeMessage(Bytes.fromHexString("0x134488556699"), List.of(1, 2, 3, 4, 6, 9, 10));
 
-  @Test
-  void shouldRoundTrip() {
-    assertRoundTrip(DECODER, MESSAGE);
+  @Property
+  void shouldRoundTrip(
+      @ForAll(supplier = FindNodeMessageSupplier.class) final FindNodeMessage message) {
+    assertRoundTrip(DECODER, message);
   }
 
-  @Test
-  void shouldRejectTrailingBytes() {
-    assertRejectTrailingBytes(DECODER, MESSAGE);
+  @Property
+  void shouldRejectTrailingBytes(
+      @ForAll(supplier = FindNodeMessageSupplier.class) final FindNodeMessage message) {
+    assertRejectTrailingBytes(DECODER, message);
   }
 
   @Test

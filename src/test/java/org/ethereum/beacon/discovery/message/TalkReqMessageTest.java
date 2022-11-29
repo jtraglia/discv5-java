@@ -7,26 +7,24 @@ package org.ethereum.beacon.discovery.message;
 import static org.ethereum.beacon.discovery.TestUtil.assertRejectTrailingBytes;
 import static org.ethereum.beacon.discovery.TestUtil.assertRoundTrip;
 
-import org.apache.tuweni.bytes.Bytes;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.ethereum.beacon.discovery.schema.NodeRecordFactory;
-import org.junit.jupiter.api.Test;
+import org.ethereum.beacon.discovery.suppliers.TalkReqMessageSupplier;
 
 class TalkReqMessageTest {
   private static final DiscoveryV5MessageDecoder DECODER =
       new DiscoveryV5MessageDecoder(NodeRecordFactory.DEFAULT);
-  private static final TalkReqMessage MESSAGE =
-      new TalkReqMessage(
-          Bytes.fromHexString("0x85482293"),
-          Bytes.fromHexString("0x12345678"),
-          Bytes.fromHexString("0x9876543231"));
 
-  @Test
-  void shouldRoundTrip() {
-    assertRoundTrip(DECODER, MESSAGE);
+  @Property
+  void shouldRoundTrip(
+      @ForAll(supplier = TalkReqMessageSupplier.class) final TalkReqMessage message) {
+    assertRoundTrip(DECODER, message);
   }
 
-  @Test
-  void shouldRejectTrailingBytes() {
-    assertRejectTrailingBytes(DECODER, MESSAGE);
+  @Property
+  void shouldRejectTrailingBytes(
+      @ForAll(supplier = TalkReqMessageSupplier.class) final TalkReqMessage message) {
+    assertRejectTrailingBytes(DECODER, message);
   }
 }

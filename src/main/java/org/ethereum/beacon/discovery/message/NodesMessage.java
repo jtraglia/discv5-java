@@ -4,6 +4,7 @@
 
 package org.ethereum.beacon.discovery.message;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static org.ethereum.beacon.discovery.util.RlpUtil.checkMaxSize;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class NodesMessage implements V5Message {
   private final List<NodeRecord> nodeRecords;
 
   public NodesMessage(Bytes requestId, Integer total, List<NodeRecord> nodeRecords) {
+    checkArgument(total >= 1, "Total should be >= 1");
     this.requestId = requestId;
     this.total = total;
     this.nodeRecords = nodeRecords;

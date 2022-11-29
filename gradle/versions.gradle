@@ -35,5 +35,7 @@ dependencyManagement {
       entry 'junit-jupiter-engine'
       entry 'junit-jupiter-params'
     }
+
+    dependency 'net.jqwik:jqwik:1.7.1'
   }
 }

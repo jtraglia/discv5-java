@@ -8,38 +8,28 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.ethereum.beacon.discovery.TestUtil.assertRejectTrailingBytes;
 import static org.ethereum.beacon.discovery.TestUtil.assertRoundTrip;
 
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
 import org.apache.tuweni.bytes.Bytes;
 import org.apache.tuweni.units.bigints.UInt64;
 import org.ethereum.beacon.discovery.schema.NodeRecordFactory;
+import org.ethereum.beacon.discovery.suppliers.PongMessageSupplier;
 import org.ethereum.beacon.discovery.util.RlpDecodeException;
 import org.junit.jupiter.api.Test;
 
 class PongMessageTest {
   private static final DiscoveryV5MessageDecoder DECODER =
       new DiscoveryV5MessageDecoder(NodeRecordFactory.DEFAULT);
-  private static final PongMessage MESSAGE_IPV4 =
-      new PongMessage(
-          Bytes.fromHexString("0x85482293"),
-          UInt64.MAX_VALUE.subtract(1),
-          Bytes.fromHexString("0x12121212"),
-          48);
-  private static final PongMessage MESSAGE_IPV6 =
-      new PongMessage(
-          Bytes.fromHexString("0x85482293"),
-          UInt64.MAX_VALUE.subtract(1),
-          Bytes.fromHexString("0x12121212121212121212121212121212"),
-          48);
 
-  @Test
-  void shouldRoundTrip() {
-    assertRoundTrip(DECODER, MESSAGE_IPV4);
-    assertRoundTrip(DECODER, MESSAGE_IPV6);
+  @Property
+  void shouldRoundTrip(@ForAll(supplier = PongMessageSupplier.class) final PongMessage message) {
+    assertRoundTrip(DECODER, message);
   }
 
-  @Test
-  void shouldRejectTrailingBytes() {
-    assertRejectTrailingBytes(DECODER, MESSAGE_IPV4);
-    assertRejectTrailingBytes(DECODER, MESSAGE_IPV6);
+  @Property
+  void shouldRejectTrailingBytes(
+      @ForAll(supplier = PongMessageSupplier.class) final PongMessage message) {
+    assertRejectTrailingBytes(DECODER, message);
   }
 
   @Test
