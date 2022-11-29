@@ -49,7 +49,7 @@ public class SimpleIdentitySchemaInterpreter implements IdentitySchemaInterprete
   }
 
   @Override
-  public IdentitySchema getScheme() {
+  public IdentitySchema getSchema() {
     return IdentitySchema.V4;
   }
 

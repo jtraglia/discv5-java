@@ -22,18 +22,18 @@ public interface IdentitySchemaInterpreter {
 
   IdentitySchemaInterpreter V4 = new IdentitySchemaV4Interpreter();
 
-  /** Returns supported scheme */
-  IdentitySchema getScheme();
+  /** Returns supported schema */
+  IdentitySchema getSchema();
 
   /* Signs nodeRecord, modifying it */
   void sign(NodeRecord nodeRecord, SecretKey secretKey);
 
-  /** Verifies that `nodeRecord` is of scheme implementation */
+  /** Verifies that `nodeRecord` is of schema implementation */
   default boolean isValid(NodeRecord nodeRecord) {
-    return nodeRecord.getIdentityScheme().equals(getScheme());
+    return nodeRecord.getIdentitySchema().equals(getSchema());
   }
 
-  /** Delivers nodeId according to identity scheme scheme */
+  /** Delivers nodeId according to identity schema schema */
   Bytes getNodeId(NodeRecord nodeRecord);
 
   Optional<InetSocketAddress> getUdpAddress(NodeRecord nodeRecord);

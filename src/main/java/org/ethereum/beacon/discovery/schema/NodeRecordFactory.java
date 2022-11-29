@@ -30,7 +30,7 @@ public class NodeRecordFactory {
 
   public NodeRecordFactory(IdentitySchemaInterpreter... identitySchemaInterpreters) {
     for (IdentitySchemaInterpreter identitySchemaInterpreter : identitySchemaInterpreters) {
-      interpreters.put(identitySchemaInterpreter.getScheme(), identitySchemaInterpreter);
+      interpreters.put(identitySchemaInterpreter.getSchema(), identitySchemaInterpreter);
     }
   }
 
@@ -39,23 +39,23 @@ public class NodeRecordFactory {
   }
 
   public NodeRecord createFromValues(UInt64 seq, List<EnrField> fieldKeyPairs) {
-    EnrField schemePair = null;
+    EnrField schemaPair = null;
     for (EnrField pair : fieldKeyPairs) {
       if (EnrField.ID.equals(pair.getName())) {
-        schemePair = pair;
+        schemaPair = pair;
         break;
       }
     }
-    if (schemePair == null) {
-      throw new RuntimeException("ENR scheme (ID) is not defined in key-value pairs");
+    if (schemaPair == null) {
+      throw new RuntimeException("ENR schema (ID) is not defined in key-value pairs");
     }
 
-    IdentitySchemaInterpreter identitySchemaInterpreter = interpreters.get(schemePair.getValue());
+    IdentitySchemaInterpreter identitySchemaInterpreter = interpreters.get(schemaPair.getValue());
     if (identitySchemaInterpreter == null) {
       throw new RuntimeException(
           String.format(
-              "No ethereum record interpreter found for identity scheme %s",
-              schemePair.getValue()));
+              "No ethereum record interpreter found for identity schema %s",
+              schemaPair.getValue()));
     }
 
     return NodeRecord.fromValues(identitySchemaInterpreter, seq, fieldKeyPairs);
@@ -100,7 +100,7 @@ public class NodeRecordFactory {
               if (nodeIdentity == null) { // no interpreter for such id
                 throw new DecodeException(
                     String.format(
-                        "Unknown node identity scheme '%s', couldn't create node record.",
+                        "Unknown node identity schema '%s', couldn't create node record.",
                         verString));
               }
               rawFields.put(key, idVersion);
@@ -109,14 +109,14 @@ public class NodeRecordFactory {
             }
           }
           if (nodeIdentity == null) { // no `id` key-values
-            throw new DecodeException("Unknown node identity scheme, not defined in record ");
+            throw new DecodeException("Unknown node identity schema, not defined in record ");
           }
 
           IdentitySchemaInterpreter identitySchemaInterpreter = interpreters.get(nodeIdentity);
           if (identitySchemaInterpreter == null) {
             throw new DecodeException(
                 String.format(
-                    "No Ethereum record interpreter found for identity scheme %s", nodeIdentity));
+                    "No Ethereum record interpreter found for identity schema %s", nodeIdentity));
           }
 
           checkComplete(listReader);

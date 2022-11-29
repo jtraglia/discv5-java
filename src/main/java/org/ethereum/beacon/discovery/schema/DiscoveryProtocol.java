@@ -15,8 +15,8 @@ public enum DiscoveryProtocol {
   private static final Map<String, DiscoveryProtocol> NAME_MAP = new HashMap<>();
 
   static {
-    for (DiscoveryProtocol scheme : DiscoveryProtocol.values()) {
-      NAME_MAP.put(scheme.name, scheme);
+    for (DiscoveryProtocol schema : DiscoveryProtocol.values()) {
+      NAME_MAP.put(schema.name, schema);
     }
   }
 

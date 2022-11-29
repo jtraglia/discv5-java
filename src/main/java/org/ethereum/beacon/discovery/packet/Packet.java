@@ -11,7 +11,7 @@ import org.ethereum.beacon.discovery.util.DecodeException;
  *
  * <p>{@code packet = masking-iv || masked-header || message}
  *
- * <p>In the scheme above the {@link Packet} represents {@code masked-header || message } part with
+ * <p>In the schema above the {@link Packet} represents {@code masked-header || message } part with
  * decrypted (AES/CTR) masked-header
  */
 public interface Packet<TAuthData extends AuthData> extends BytesSerializable {

@@ -7,26 +7,26 @@ package org.ethereum.beacon.discovery.schema;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Discovery protocol identity schemes */
-public enum IdentityScheme {
+/** Discovery protocol identity schemas */
+public enum IdentitySchema {
   V4("v4"),
   V5("v5");
 
-  private static final Map<String, IdentityScheme> NAME_MAP = new HashMap<>();
+  private static final Map<String, IdentitySchema> NAME_MAP = new HashMap<>();
 
   static {
-    for (IdentityScheme scheme : IdentityScheme.values()) {
-      NAME_MAP.put(scheme.name, scheme);
+    for (IdentitySchema schema : IdentitySchema.values()) {
+      NAME_MAP.put(schema.name, schema);
     }
   }
 
   private final String name;
 
-  private IdentityScheme(String name) {
+  private IdentitySchema(String name) {
     this.name = name;
   }
 
-  public static IdentityScheme fromString(String name) {
+  public static IdentitySchema fromString(String name) {
     return NAME_MAP.get(name);
   }
 

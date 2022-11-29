@@ -14,8 +14,8 @@ public enum IdentitySchema {
   private static final Map<String, IdentitySchema> NAME_MAP = new HashMap<>();
 
   static {
-    for (IdentitySchema scheme : IdentitySchema.values()) {
-      NAME_MAP.put(scheme.name, scheme);
+    for (IdentitySchema schema : IdentitySchema.values()) {
+      NAME_MAP.put(schema.name, schema);
     }
   }
 

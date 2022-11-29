@@ -54,7 +54,7 @@ public class NodeRecordTest {
         "-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8";
     NodeRecord nodeRecord = NODE_RECORD_FACTORY.fromBase64(localhostEnr);
 
-    assertEquals(IdentitySchema.V4, nodeRecord.getIdentityScheme());
+    assertEquals(IdentitySchema.V4, nodeRecord.getIdentitySchema());
     assertArrayEquals(
         InetAddress.getByName(expectedHost).getAddress(),
         ((Bytes) nodeRecord.get(EnrField.IP_V4)).toArray());
@@ -68,7 +68,7 @@ public class NodeRecordTest {
     // The order of fields is not strict so we don't compare strings
     NodeRecord nodeRecordRestored = NODE_RECORD_FACTORY.fromBase64(localhostEnrRestored);
 
-    assertEquals(IdentitySchema.V4, nodeRecordRestored.getIdentityScheme());
+    assertEquals(IdentitySchema.V4, nodeRecordRestored.getIdentitySchema());
     assertArrayEquals(
         InetAddress.getByName(expectedHost).getAddress(),
         ((Bytes) nodeRecordRestored.get(EnrField.IP_V4)).toArray());

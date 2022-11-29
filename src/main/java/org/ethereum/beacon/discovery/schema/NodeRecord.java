@@ -87,8 +87,8 @@ public class NodeRecord {
     return "enr:" + asBase64();
   }
 
-  public IdentitySchema getIdentityScheme() {
-    return identitySchemaInterpreter.getScheme();
+  public IdentitySchema getIdentitySchema() {
+    return identitySchemaInterpreter.getSchema();
   }
 
   public void set(String key, Object value) {

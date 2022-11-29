@@ -46,9 +46,9 @@ public class IdentitySchemaV4Interpreter implements IdentitySchemaInterpreter {
     }
     if (nodeRecord.get(EnrField.PKEY_SECP256K1) == null) {
       LOG.trace(
-          "Field {} does not exist but required for scheme {}",
+          "Field {} does not exist but required for schema {}",
           EnrField.PKEY_SECP256K1,
-          getScheme());
+          getSchema());
       return false;
     }
     Bytes pubKey = (Bytes) nodeRecord.get(EnrField.PKEY_SECP256K1); // compressed
@@ -57,7 +57,7 @@ public class IdentitySchemaV4Interpreter implements IdentitySchemaInterpreter {
   }
 
   @Override
-  public IdentitySchema getScheme() {
+  public IdentitySchema getSchema() {
     return IdentitySchema.V4;
   }
 

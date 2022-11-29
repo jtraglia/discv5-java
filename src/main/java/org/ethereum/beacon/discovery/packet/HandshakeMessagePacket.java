@@ -22,7 +22,7 @@ import org.ethereum.beacon.discovery.util.Functions;
  * Handshake packet
  *
  * <p>For handshake message packets, the authdata section has variable size since public key and
- * signature sizes depend on the ENR identity scheme. For the "v4" identity scheme, we assume
+ * signature sizes depend on the ENR identity schema. For the "v4" identity schema, we assume
  * 64-byte signature size and 33 bytes of (compressed) public key size.
  *
  * <p>authdata starts with a fixed-size authdata-head component, followed by the ID signature,
@@ -37,7 +37,7 @@ import org.ethereum.beacon.discovery.util.Functions;
  *
  * <p>authdata = authdata-head || id-signature || eph-pubkey || record authdata-head = src-id ||
  * sig-size || eph-key-size authdata-size = 34 + sig-size + eph-key-size + len(record) sig-size =
- * uint8 -- value: 64 for ID scheme "v4" eph-key-size = uint8 -- value: 33 for ID scheme "v4"
+ * uint8 -- value: 64 for ID schema "v4" eph-key-size = uint8 -- value: 33 for ID schema "v4"
  */
 public interface HandshakeMessagePacket extends MessagePacket<HandshakeAuthData> {
 
